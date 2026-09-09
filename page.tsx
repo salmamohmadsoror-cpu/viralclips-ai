@@ -1,54 +1,63 @@
-import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import Sidebar from "@/components/Sidebar";
+import { UploadCloud, Clock, CheckCircle2 } from "lucide-react";
 
-export default function LandingPage() {
+const PAST_JOBS = [
+  { id: "job_1", name: "Podcast ep. 42 - pricing strategy", status: "done", clips: 10, date: "Sep 6" },
+  { id: "job_2", name: "Keynote - future of SaaS", status: "done", clips: 10, date: "Sep 3" },
+  { id: "job_3", name: "Interview - founder story", status: "processing", clips: 0, date: "Sep 9" },
+];
+
+export default function DashboardPage() {
   return (
-    <main>
-      <Navbar />
+    <main className="flex min-h-screen bg-base">
+      <Sidebar active="dashboard" />
 
-      <section className="mx-auto flex max-w-4xl flex-col items-center px-6 py-24 text-center">
-        <span className="mb-6 rounded-clip border border-line px-3 py-1 text-xs text-paper/60">
-          فيديو واحد → عشر شورتس
-        </span>
-        <h1 className="font-display text-4xl font-bold leading-tight sm:text-6xl">
-          حوّل حلقة الـ10 دقايق
-          <br />
-          لعشر <span className="text-pulse">شورتس فيروسية</span>
-        </h1>
-        <p className="mt-6 max-w-xl text-lg text-paper/60">
-          ارفع الفيديو، وسيبنا نلاقي أقوى اللحظات، نقصها، ونحطلها كابشن متحرك
-          جاهز للنشر على TikTok وReels وShorts.
-        </p>
-        <div className="mt-10 flex gap-4">
-          <Link
-            href="/dashboard"
-            className="rounded-clip bg-pulse px-6 py-3 font-medium text-ink hover:bg-[#ff5c7e]"
-          >
-            جرب مجانًا — أول كليب من غيرك
-          </Link>
+      <section className="flex-1 p-10 max-w-5xl">
+        <header className="mb-8">
+          <h1 className="font-display text-3xl font-bold mb-1">My clips</h1>
+          <p className="text-muted text-sm">
+            Upload a video up to 10 minutes long. We'll hand you back the 10 best shorts.
+          </p>
+        </header>
+
+        {/* Upload dropzone */}
+        <div className="rounded-card border-2 border-dashed border-border bg-surface p-10 flex flex-col items-center text-center mb-10 hover:border-volt transition-colors cursor-pointer">
+          <div className="w-14 h-14 rounded-full bg-elevated flex items-center justify-center mb-4">
+            <UploadCloud className="text-volt" size={26} />
+          </div>
+          <p className="font-medium mb-1">Drop a video here, or click to browse</p>
+          <p className="text-muted text-sm">MP4 or MOV · up to 10 minutes · max 2GB</p>
+          <button className="mt-5 rounded-card bg-record px-6 py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity">
+            Choose video
+          </button>
         </div>
-      </section>
 
-      <section className="border-t border-line">
-        <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 px-6 py-16 sm:grid-cols-3">
-          {[
-            {
-              title: "اكتشاف ذكي للحظات",
-              desc: "الذكاء الاصطناعي بيدور على الهوك واللحظات القوية اللي بتشد المشاهد."
-            },
-            {
-              title: "قص وتأطير تلقائي",
-              desc: "تحويل تلقائي للفورمات العمودي مع متابعة وش المتكلم."
-            },
-            {
-              title: "كابشن متحرك",
-              desc: "كابشن بيتحرك مع الصوت كلمة كلمة، بأكتر من استايل."
-            }
-          ].map((f) => (
-            <div key={f.title}>
-              <h3 className="font-display font-medium">{f.title}</h3>
-              <p className="mt-2 text-sm text-paper/50">{f.desc}</p>
-            </div>
+        {/* Past projects */}
+        <h2 className="font-display text-lg font-bold mb-4">Recent projects</h2>
+        <div className="flex flex-col gap-3">
+          {PAST_JOBS.map((job) => (
+            <a
+              key={job.id}
+              href={job.status === "done" ? `/results/${job.id}` : `/processing/${job.id}`}
+              className="flex items-center justify-between rounded-card bg-surface border border-border px-5 py-4 hover:border-volt transition-colors"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-card bg-elevated flex items-center justify-center">
+                  {job.status === "done" ? (
+                    <CheckCircle2 className="text-go" size={18} />
+                  ) : (
+                    <Clock className="text-volt" size={18} />
+                  )}
+                </div>
+                <div>
+                  <p className="font-medium text-sm">{job.name}</p>
+                  <p className="text-muted text-xs mt-0.5">
+                    {job.status === "done" ? `${job.clips} clips ready` : "Processing…"}
+                  </p>
+                </div>
+              </div>
+              <span className="text-muted text-xs">{job.date}</span>
+            </a>
           ))}
         </div>
       </section>

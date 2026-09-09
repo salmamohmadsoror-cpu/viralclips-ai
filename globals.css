@@ -2,54 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
-
-html,
 body {
-  background-color: #0d0e13;
-  color: #f5f4f1;
-}
-
-body {
-  font-family: var(--font-body), sans-serif;
+  background-color: #12111A;
+  color: #F5F3F7;
 }
 
 ::selection {
-  background-color: #ff3d68;
-  color: #0d0e13;
+  background: #FF3B5C;
+  color: #12111A;
 }
 
-/* Focus visibility for accessibility */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid #3bd1c9;
-  outline-offset: 2px;
+.record-dot {
+  box-shadow: 0 0 0 0 rgba(255, 59, 92, 0.6);
+  animation: pulse 1.8s infinite;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* waveform loading bar used in Processing screen */
-@keyframes waveform {
-  0%,
-  100% {
-    transform: scaleY(0.3);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-.waveform-bar {
-  animation: waveform 1.1s ease-in-out infinite;
-  transform-origin: center;
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 59, 92, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 59, 92, 0); }
 }
