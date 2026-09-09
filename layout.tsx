@@ -5,23 +5,29 @@ import "./globals.css";
 const display = Space_Grotesk({
   subsets: ["latin"],
   weight: ["500", "700"],
-  variable: "--font-display",
+  variable: "--font-display"
 });
+
 const body = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-body",
+  variable: "--font-body"
 });
 
 export const metadata: Metadata = {
-  title: "ViralClips AI",
-  description: "Turn one long video into 10 short clips people actually watch.",
+  title: "ViralClips AI — من فيديو طويل لعشر شورتس",
+  description:
+    "ارفع فيديو واحد لغاية 10 دقايق، واستلم 10 شورتس فيروسية جاهزة بكابشن متحرك."
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <body className="font-body">{children}</body>
+    <html lang="ar" dir="rtl" className={`${display.variable} ${body.variable}`}>
+      <body className="bg-ink text-paper antialiased">{children}</body>
     </html>
   );
 }
